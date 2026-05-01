@@ -21,6 +21,9 @@ RUN apt-get update && apt-get install -y docker-ce-cli && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Allocate directory for maven to cache its downloads
+RUN mkdir -p /maven-cache && chown -R jenkins:jenkins /maven-cache
+
 RUN java -version && mvn -version && docker --version
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
